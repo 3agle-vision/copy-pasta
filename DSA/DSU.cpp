@@ -23,3 +23,20 @@ struct DSU {
         size[a] += size[b];
     }
 };
+
+// -------------------- 競技プログラミングでは --------------------
+
+function<int(int)> find = [&](int x) {
+    while (parent[x] != x) {
+        parent[x] = parent[parent[x]];
+        x = parent[x];
+    }
+    return x;
+};
+
+// Union all connected components
+for (auto& conn : connections) {
+    int a = conn[0], b = conn[1];
+    int ra = find(a), rb = find(b);
+    if (ra != rb) parent[rb] = ra;
+}
